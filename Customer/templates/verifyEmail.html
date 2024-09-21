@@ -1,0 +1,31 @@
+{% extends 'layout/base.html' %}
+{% block title %} Mushroomyan {% endblock %}
+{% block body %}
+<script>
+	$(document).ready(function(){
+		var path = window.location.pathname.split('/');
+        var otp = path[3];
+        var phone_number = path[4];
+            $.ajax({
+                type: 'PUT',
+                url: '/user/OTP_check_api/',
+                data: JSON.stringify({'phone_number': phone_number, 'otp': otp,}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(response){
+                    if(response.status == 202) {
+                        localStorage.removeItem("phone_number");
+                        window.location.href = '/user/log_in';
+                    }
+                    else {
+                        // OTP verification failed
+                        alert(response.massage);
+                    }
+                },
+                failure: function(response){
+                    alert("Error occured while signing up. Please try again later.");
+                }
+            });
+	});
+</script>
+{% endblock %}

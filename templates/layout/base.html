@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <title>
+      {% block title %}
+        base
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    {% include 'layout/header.html' %}
+    <div class="body_start">
+      <br />
+    </div>
+    {% block body %}
+
+    {% endblock %}
+    <br /><br /><br /><br />
+    <script>
+    if (localStorage.getItem('access')){
+        let name = localStorage.getItem('full_name')
+        $('#SignOut').show()
+        $('#SignIn').hide()
+        $('#SignUp').hide()
+        $('#name').text(localStorage.getItem('full_name'))
+    }
+    else{
+        $('#SignOut').hide()
+    }
+    function signOut(){
+        localStorage.removeItem("full_name");
+        localStorage.removeItem("access");
+        window.location="/"
+    }
+</script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

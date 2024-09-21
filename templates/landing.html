@@ -1,0 +1,69 @@
+{% extends 'layout/base.html' %}
+{% block title %}
+  Filter
+{% endblock %}
+{% block body %}
+
+<div id="search" class="form-inline">
+  <input class="form-control mr-sm-2" type="text" id="searchValue" name="searchValue" placeholder="Search your product">
+  <button class="btn btn-success" id="search_field" type="submit">Search</button>
+</div>
+  <div id="searchPanel">
+
+      {% csrf_token %}
+      <h2>Categories</h2>
+      {% for category in Categories %}
+        <label>
+          <input id="category" type="checkbox" name="options" value="{{ category.id }}" />
+          {{ category.category_name }}
+        </label><br />
+      {% endfor %}
+
+      <h2>Brands</h2>
+      {% for brand in Brands %}
+        <label>
+          <input id="brand" type="checkbox" name="options" value="{{ brand.id }}" />
+          {{ brand.brand_name }}
+        </label><br />
+      {% endfor %}
+
+      <h2>Sellers</h2>
+      {% for seller in Sellers %}
+        <label>
+          <input id="seller" type="checkbox" name="options" value="{{ seller.id }}" />
+          {{ seller.seller_name }}
+        </label><br />
+      {% endfor %}
+
+      <h2>Warrantys</h2>
+      {% for warranty in Warrantys %}
+        <label>
+          <input id="warranty" type="checkbox" name="options" value="{{ warranty.id }}" />
+          {{ warranty.warranty_name }}
+        </label><br />
+      {% endfor %}
+
+      <h2>ProductTypes</h2>
+      {% for productType in ProductTypes %}
+        <label>
+          <input id="productType" type="checkbox" name="options" value="{{ productType.id }}" />
+          {{ productType.product_type_name }}
+        </label><br />
+      {% endfor %}
+      <label for="sort"><h5>Sort by Price:</h5></label>
+      <select id="price" name="sort">
+        <option value="0">Low to High</option>
+        <option value="1">High to Low</option>
+      </select>
+
+      <br />
+      <input type="submit" id="filer" value="Apply Filters" />
+      <button id="resetFilters">Reset</button>
+  </div>
+
+  <div id="mainContent">
+    <div class="row"></div>
+  </div>
+
+
+{% endblock %}
